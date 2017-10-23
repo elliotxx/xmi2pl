@@ -12,6 +12,7 @@ UML图 转换为 Prolog代码
 ```
 xmi_filename = '[待解析 xmi 文件]' 
 ```
+
 2. 运行转换工具
 ```
 python xmi2pl.py
