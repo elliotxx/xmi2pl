@@ -93,9 +93,9 @@ for item in items:
         PrimitiveTypes_list.append(element)
 
     elif item.getAttribute('xmi:type') == 'uml:Association':
-    	# 关联关系
+        # 关联关系
         element['id'] = 's%d'%term_cnt['s']
-    	element['memberEnd'] = item.getAttribute('memberEnd').split()
+        element['memberEnd'] = item.getAttribute('memberEnd').split()
         idMap[element['xmi:id']] = element['id']
         term_cnt['s'] += 1
         Association_list.append(element)
@@ -128,20 +128,20 @@ for item in items:
         elist = item.childNodes
         # 如果不包含 lowerValue 和 upperValue 就退出当前循环
         if len(elist) == 0:
-        	continue
+            continue
         element = {
             'Endid' : 'm%d'%term_cnt['m'],
-        	'Classid' : idMap[item.getAttribute('xmi:id')]['classid'],
-        	'Associd' : idMap[item.getAttribute('association')],
+            'Classid' : idMap[item.getAttribute('xmi:id')]['classid'],
+            'Associd' : idMap[item.getAttribute('association')],
         }
         # 取出 lowerValue 和 upperValue
         for e in elist:
-        	if e.nodeName == 'lowerValue' or e.nodeName == 'upperValue':
-        		key = 'Lowval' if e.nodeName == 'lowerValue' else 'Upval'
-        		if e.hasAttribute('value'):
-        			element[key] = 'n' if e.getAttribute('value')=='*' else e.getAttribute('value')
-        		else:
-        			element[key] = '0'
+            if e.nodeName == 'lowerValue' or e.nodeName == 'upperValue':
+                key = 'Lowval' if e.nodeName == 'lowerValue' else 'Upval'
+                if e.hasAttribute('value'):
+                    element[key] = 'n' if e.getAttribute('value')=='*' else e.getAttribute('value')
+                else:
+                    element[key] = '0'
         term_cnt['m'] += 1
         Multiplicity_list.append(element)
 
@@ -158,14 +158,14 @@ for item in items:
 # 处理角色
 printx('正在解析UML图中的 角色 ……')
 for Association in Association_list:
-	element = {
-	    'Roleid' : 'r%d'%term_cnt['r'],
-	    'nameA' : idMap[Association['memberEnd'][1]]['name'],
-	    'nameB' : idMap[Association['memberEnd'][0]]['name'],
-	    'Associd' : Association['id'],
-	}
-	Rolename_list.append(element)
-	term_cnt['r'] += 1
+    element = {
+        'Roleid' : 'r%d'%term_cnt['r'],
+        'nameA' : idMap[Association['memberEnd'][1]]['name'],
+        'nameB' : idMap[Association['memberEnd'][0]]['name'],
+        'Associd' : Association['id'],
+    }
+    Rolename_list.append(element)
+    term_cnt['r'] += 1
 
 
 # 获取所有 ownedParameter 元素
@@ -174,18 +174,18 @@ items = collection.getElementsByTagName('ownedParameter')
 
 # 处理每个 ownedParameter 元素
 for item in items:
-	if item.hasAttribute('name'):
-		# 是函数参数
-	    element = {
-	        'id' : 'p%d'%term_cnt['p'],
-	        'name' : item.getAttribute('name'),
-	        'xmi:id' : item.getAttribute('xmi:id'),
-	        'xmi:type' : item.getAttribute('xmi:type'),
-	        'classid' : idMap[item.getAttribute('type')],
-	    }
-	    idMap[element['classid']] = element['id']
-	    term_cnt['p'] += 1
-	    Parameter_list.append(element)
+    if item.hasAttribute('name'):
+        # 是函数参数
+        element = {
+            'id' : 'p%d'%term_cnt['p'],
+            'name' : item.getAttribute('name'),
+            'xmi:id' : item.getAttribute('xmi:id'),
+            'xmi:type' : item.getAttribute('xmi:type'),
+            'classid' : idMap[item.getAttribute('type')],
+        }
+        idMap[element['classid']] = element['id']
+        term_cnt['p'] += 1
+        Parameter_list.append(element)
 
 
 # 获取所有 ownedOperation 元素
@@ -207,7 +207,7 @@ for item in items:
     for p in item.childNodes:
         if p.nodeName == 'ownedParameter':
             if p.hasAttribute('name'):
-            	element['parametersid'].append(idMap[idMap[p.getAttribute('type')]])
+                element['parametersid'].append(idMap[idMap[p.getAttribute('type')]])
     term_cnt['o'] += 1
     Operation_list.append(element)
 
