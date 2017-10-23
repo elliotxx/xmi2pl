@@ -8,12 +8,7 @@ UML图 转换为 Prolog代码
 * class2.pl 为示例输出
 
 ### Usage
-1. 修改 xmi2pl.py 代码
+1. 运行转换工具
 ```
-xmi_filename = '[待解析 xmi 文件]' 
-```
-
-2. 运行转换工具
-```
-python xmi2pl.py
+xmi2pl.py object.xmi
 ```
