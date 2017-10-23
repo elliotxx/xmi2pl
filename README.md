@@ -1,6 +1,9 @@
 ## xmi2pl
 UML图 转换为 Prolog代码 
 
+### 运行环境
+python2.7
+
 ### 说明
 * xmi2pl.py 文件为转换工具
 * .xmi 文件为 UML 图文件
